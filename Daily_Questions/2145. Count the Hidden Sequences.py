@@ -1,11 +1,8 @@
-class Solution {
-public int numberOfArrays(int[] diff, int lower, int upper) {
-    long a = 0, maxima = 0, minima = 0;
-    for (int i = 0; i < diff.length; i++) {
-        a += diff[i];
-        maxima = Math.max(maxima, a);
-        minima = Math.min(minima, a);
-    }
-    return (int) Math.max(0, (upper - lower) - (maxima - minima) + 1);
-}
-}
+class Solution:
+    def numberOfArrays(self, diff: List[int], lower: int, upper: int) -> int:
+        a = maxima = minima = 0
+        for d in diff:
+            a += d
+            maxima = max(maxima, a)
+            minima = min(minima, a)
+        return max(0, (upper - lower) - (maxima - minima) + 1)
