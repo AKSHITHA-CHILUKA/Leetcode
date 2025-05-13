@@ -1,17 +1,24 @@
-class Solution:
-    def lengthAfterTransformations(self, s: str, t: int) -> int:
-        MOD = 10**9 + 7
-        total_length = len(s)
-        z_count = s.count('z')
-        
+class Solution(object):
+    def lengthAfterTransformations(self, s, t):
+        mod = 10**9 + 7
+        nums = [0]*26
+        for ch in s:
+            nums[ord(ch) - 97] += 1
+
         for _ in range(t):
-            total_length += z_count  
-            z_count = 0
-            
-            
-            for char in s:
-                if char == 'z':
-                    z_count += 1
-                elif char == 'y':
-                    z_count += 1  
-        return total_length % MOD
+            cur = [0]*26
+            z = nums[25]
+            if z:
+                # 'z' → 'a' and 'b'
+                cur[0] = (cur[0] + z) % mod
+                cur[1] = (cur[1] + z) % mod
+            for j in range(25):
+                v = nums[j]
+                if v:
+                    cur[j+1] = (cur[j+1] + v) % mod
+            nums = cur
+
+        res = 0
+        for v in nums:
+            res = (res + v) % mod
+        return res
